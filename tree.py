@@ -1,3 +1,5 @@
+from stack import Stack
+
 class BinaryTree:
     def __init__(self,key, leftTree = None, rightTree = None):
         self.key = key
