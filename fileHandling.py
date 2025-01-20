@@ -4,7 +4,6 @@ import os
 # Read input file
 class ReadFile:
     def __init__(self, option):
-        
         self.__option = option
         self.__file_content = None
         self.__file_name = None
