@@ -1,9 +1,11 @@
-from buildParseTree import buildParseTree
-
+from buildParseTree import BuildParseTree
+from fileHandling import ReadFile
+from fileOutput import OutputFile
+from sortExpression import SortExpressions
 class GUI:
     def __init__(self):
+        self.evaluate_expression = BuildParseTree()
         self.title_bar()
-        self.evaluate_expression = buildParseTree()
 
     def title_bar(self):
         # Show the title bar
@@ -61,11 +63,15 @@ class GUI:
     
     def evaluate_expression_choice(self):
         self.evaluate_expression.build()
+        self.cont()
 
     def sort_expressions(self):
+        file_content = ReadFile().get_content()
+
+        test = SortExpressions(file_content)
         self.cont()
 
     def exit_program(self):
-        # Option 7: Exit the program.
+        # Option 7: Exit the program.   
         print("\nBye, thanks for using ST1507 DSAA: Expression Evaluator & Sorter")
         exit()

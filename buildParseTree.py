@@ -1,7 +1,7 @@
 from tree import BinaryTree
 from stack import Stack
 
-class buildParseTree():
+class BuildParseTree():
     def __init__(self):
         self.stack = Stack()
         self.tree = BinaryTree('?')
