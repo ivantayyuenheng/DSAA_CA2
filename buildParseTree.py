@@ -87,8 +87,3 @@ class BuildParseTree:
         self.exp = input("Please enter the expression you want to evaluate:\n")
         self.tokens = Tokeniser(self.exp).tokenise()
         print(self.tokens)
-
-mytree = BuildParseTree()
-mytree.build()
-result = mytree.evaluate()
-print(f"Result of expression evaluation: {result}")

@@ -1,4 +1,4 @@
 from GUI import GUI
 
-# run GUI
-gui = GUI()
+if __name__ == "__main__":
+    gui = GUI()
