@@ -5,6 +5,9 @@ from fileHandling import ReadFile
 from fileOutput import OutputFile
 from sortExpression import SortExpressions
 from expressionPathFinder import NumberPathFinder
+from randomExpressionGenerator import RandomExpressionGenerator
+
+# For option 5
 class GUI:
     def __init__(self):
         self.title_bar()
@@ -39,7 +42,7 @@ class GUI:
         1. Evaluate expression
         2. Sort expressions
         3. Minimum expression path finder (Ivan Tay)
-        4. Extra Feature 2 (Ivan Tay)
+        4. Random expression generator (Ivan Tay)
         5. Extra Feature 1 (Chan Jun Yi)
         6. Extra Feature 2 (Chan Jun Yi)
         7. Exit""")
@@ -53,7 +56,7 @@ class GUI:
             case '3':
                 self.expression_path_finder()
             case '4':
-                self.cont()
+                self.random_expression_generator()
             case '5':
                 self.cont()
             case '6':
@@ -69,7 +72,6 @@ class GUI:
         result = evaluate_expression.evaluate()
 
         print(tree)
-    
         self.cont()
 
     def sort_expressions(self):
@@ -88,6 +90,12 @@ class GUI:
         path_finder = NumberPathFinder()
         path_finder.main_menu()
         self.cont()
+
+    def random_expression_generator(self):
+        generator = RandomExpressionGenerator()
+        generator.expression_sub_menu()
+        self.cont()
+            
 
     def exit_program(self):
         # Option 7: Exit the program.   
