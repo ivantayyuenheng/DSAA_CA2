@@ -1,6 +1,7 @@
 # Read output file
 class OutputFile:
     def __init__(self):
+
         self.__outputfile = self.get_filename()
 
     def get_filename(self):
@@ -17,9 +18,9 @@ class OutputFile:
     def send_file(self, content):
         
         # Write the content to the output file
-        if self.__output_file:  
+        if self.__outputfile:  
             try:
-                with open(self.__output_file, "w") as file:
+                with open(self.__outputfile, "w") as file:
                     file.write(content)
             except IOError:
                 print("Error creating output file.")

@@ -2,7 +2,7 @@ from buildParseTree import BuildParseTree
 from fileHandling import ReadFile
 from fileOutput import OutputFile
 from sortExpression import SortExpressions
-
+from expressionPathFinder import NumberPathFinder
 class GUI:
     def __init__(self):
         self.title_bar()
@@ -36,7 +36,7 @@ class GUI:
         print("""Please select your choice ('1', '2', '3', '4', '5', '6', '7'):
         1. Evaluate expression
         2. Sort expressions
-        3. Extra Feature 1 (Ivan Tay)
+        3. Minimum expression path finder (Ivan Tay)
         4. Extra Feature 2 (Ivan Tay)
         5. Extra Feature 1 (Chan Jun Yi)
         6. Extra Feature 2 (Chan Jun Yi)
@@ -49,7 +49,7 @@ class GUI:
             case '2':
                 self.sort_expressions()
             case '3':
-                self.cont()
+                self.expression_path_finder()
             case '4':
                 self.cont()
             case '5':
@@ -80,6 +80,11 @@ class GUI:
         else:
             print("Error: Unable to read file content.")
             
+        self.cont()
+
+    def expression_path_finder(self):
+        path_finder = NumberPathFinder()
+        path_finder.main_menu()
         self.cont()
 
     def exit_program(self):
