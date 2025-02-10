@@ -3,6 +3,7 @@ class BinaryTree:
         self.key = key
         self.leftTree = leftTree
         self.rightTree = rightTree
+        self.myStack = []
 
     def setKey(self, key):
         self.key = key
@@ -37,12 +38,14 @@ class BinaryTree:
         if self.rightTree != None:
             self.rightTree.printPreorder(level+1) 
 
-    def printInorder(self, level):
+    def printInorder(self, level, leafStack):
         if self.leftTree != None:
-            self.leftTree.printInorder(level+1)
+            self.leftTree.printInorder(level+1, leafStack)
         print( str(level*'-') + str(self.key))
+        leafStack.append([self.key, level])
         if self.rightTree != None:
-            self.rightTree.printInorder(level+1)    
+            self.rightTree.printInorder(level+1, leafStack) 
+        self.myStack = leafStack
 
     def printPostorder(self, level):
         if self.leftTree != None:
@@ -50,3 +53,11 @@ class BinaryTree:
         if self.rightTree != None:
             self.rightTree.printPostorder(level+1) 
         print( str(level*'-') + str(self.key))
+
+    def stackInorder(self, level, leafStack):
+        if self.leftTree != None:
+            self.leftTree.stackInorder(level+1, leafStack)
+        leafStack.append([self.key, level])
+        if self.rightTree != None:
+            self.rightTree.stackInorder(level+1, leafStack) 
+        self.myStack = leafStack
