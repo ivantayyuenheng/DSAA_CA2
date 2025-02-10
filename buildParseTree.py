@@ -1,6 +1,7 @@
 from tree import BinaryTree
 from stack import Stack
 from tokeniser import Tokeniser
+from expressionTree import expressionTree
 
 class BuildParseTree:
     def __init__(self):
@@ -52,6 +53,14 @@ class BuildParseTree:
                         currentTree = self.stack.pop()
 
             return self.tree
+        
+    def printTree(self):
+        self.tree.stackInorder(0, [])
+        #print("mystack:")
+        #print(mytree.tree.myStack)
+        
+        self.expressionTree = expressionTree(self.tree)
+        self.expressionTree.printExpressionTree()
 
     def evaluate(self, node=None):
 

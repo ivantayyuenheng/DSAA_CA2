@@ -2,6 +2,7 @@ from buildParseTree import BuildParseTree
 from fileHandling import ReadFile
 from fileOutput import OutputFile
 from sortExpression import SortExpressions
+from expressionTree import expressionTree
 
 class GUI:
     def __init__(self):
@@ -62,15 +63,12 @@ class GUI:
                 print("\nPlease choose from 1 to 7 only")     
 
     def evaluate_expression_choice(self):
-        evaluate_expression = BuildParseTree()
-        tree = evaluate_expression.build()
-        result = evaluate_expression.evaluate()
-
-        print("")
-        print("Expression tree:")
-
-
-    
+        mytree = BuildParseTree()
+        mytree.build()
+        print()
+        result = mytree.evaluate()
+        print(f"Result of expression evaluation: {result}")
+        mytree.printTree()    
         self.cont()
 
     def sort_expressions(self):
