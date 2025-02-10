@@ -66,7 +66,10 @@ class GUI:
         tree = evaluate_expression.build()
         result = evaluate_expression.evaluate()
 
-        print(tree)
+        print("")
+        print("Expression tree:")
+
+
     
         self.cont()
 

@@ -18,8 +18,8 @@ class BuildParseTree:
             self.stack.push(self.tree)
             currentTree = self.tree
 
-            print("Initial Stack:")
-            print(self.stack.getValues())  # Display initial stack
+            #print("Initial Stack:")
+            #print(self.stack.getValues())  # Display initial stack
 
             for t in self.tokens:
                 # RULE 1: If token is '(' add a new node as left child
@@ -86,4 +86,4 @@ class BuildParseTree:
     def inputExpression(self):
         self.exp = input("Please enter the expression you want to evaluate:\n")
         self.tokens = Tokeniser(self.exp).tokenise()
-        print(self.tokens)
+        #print(self.tokens)
