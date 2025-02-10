@@ -64,6 +64,7 @@ class GUI:
 
     def evaluate_expression_choice(self):
         mytree = BuildParseTree()
+        mytree.inputExpression()
         mytree.build()
         result = mytree.evaluate()
         if result != "?":
@@ -76,9 +77,8 @@ class GUI:
         file_content = ReadFile(1).get_content()  # Read file content
 
         if file_content:  # Check if content is retrieved
-            mytree = BuildParseTree()  # Create instance only when needed
-            sorted_expressions = SortExpressions(file_content)  # Sort expressions
-            print("Sorted Expressions:", sorted_expressions)  # Display sorted result
+            sorter = SortExpressions(file_content)  # Sort expressions
+            sorter.sort_expressions()  # Sort expressions
         else:
             print("Error: Unable to read file content.")
             

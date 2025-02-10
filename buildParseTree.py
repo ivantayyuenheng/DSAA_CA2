@@ -11,7 +11,6 @@ class BuildParseTree:
         self.tokens = []
 
     def build(self):
-        self.inputExpression()
         if self.tokens == None:
             print("\nInvalid expression")
             return None
