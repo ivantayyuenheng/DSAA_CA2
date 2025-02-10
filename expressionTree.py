@@ -24,13 +24,16 @@ class expressionTree:
         # Display the resulting string
         print(grid_string)
 
- 
     #for printing expression tree
     def split_elements_within_array(self):
         result = []
         for item in self.data:
             value, index = item
             # Convert value to string and split into individual characters
+            #removing floating point if it is an integer
+            if isinstance(value, (int, float)):
+                if value == int(value):
+                    value = int(value)
             value_str = str(value)
             split_subarray = []
             for i, char in enumerate(value_str):
