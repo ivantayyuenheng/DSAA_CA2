@@ -65,17 +65,18 @@ class GUI:
     def evaluate_expression_choice(self):
         mytree = BuildParseTree()
         mytree.build()
-        print()
         result = mytree.evaluate()
-        print(f"Result of expression evaluation: {result}")
-        mytree.printTree()    
+        if result != "?":
+            print(f"\nResult of expression evaluation: {result}")
+            mytree.printTree()  
+
         self.cont()
 
     def sort_expressions(self):
-        file_content = ReadFile().get_content()  # Read file content
+        file_content = ReadFile(1).get_content()  # Read file content
 
         if file_content:  # Check if content is retrieved
-            evaluate_expression = BuildParseTree()  # Create instance only when needed
+            mytree = BuildParseTree()  # Create instance only when needed
             sorted_expressions = SortExpressions(file_content)  # Sort expressions
             print("Sorted Expressions:", sorted_expressions)  # Display sorted result
         else:

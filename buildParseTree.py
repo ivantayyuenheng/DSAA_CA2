@@ -13,7 +13,7 @@ class BuildParseTree:
     def build(self):
         self.inputExpression()
         if self.tokens == None:
-            print("Invalid expression")
+            print("\nInvalid expression")
             return None
         else:
             self.stack.push(self.tree)
