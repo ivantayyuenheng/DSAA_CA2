@@ -1,6 +1,7 @@
 from tree import BinaryTree
 from stack import Stack
 from tokeniser import Tokeniser
+from expressionTree import expressionTree
 
 class BuildParseTree:
     def __init__(self):
@@ -8,6 +9,7 @@ class BuildParseTree:
         self.tree = BinaryTree('?')
         self.exp = ""
         self.tokens = []
+        self.expressionTree = None
 
     def build(self):
         self.inputExpression()
@@ -123,26 +125,15 @@ while True:
     mytree = BuildParseTree()
     mytree.build()
     print()
-    print("mystack:")
     result = mytree.evaluate()
     print(f"Result of expression evaluation: {result}")
-    #get mystack
-    mytree.tree.stackInorder(0, [])
-    print(mytree.tree.myStack)
 
+    def getMyStack():
+        mytree.tree.stackInorder(0, [])
+        #print("mystack:")
+        #print(mytree.tree.myStack)
+    getMyStack()
 
-    processed_array_within = mytree.split_elements_within_array(mytree.tree.myStack)
-    highest_row = mytree.find_highest_row(processed_array_within)
-    row = highest_row + 1
-    col = len(mytree.tree.myStack)
-    multiplication_grid = mytree.create_multiplication_grid(row, col)
-
-    for col_index, items in enumerate(processed_array_within):  # Iterate through columns of the array
-        for value, row_index in items:  # For each value in the array column
-            multiplication_grid[row_index][col_index] = value  # Place value into the correct grid position
-
-    grid_string = '\n'.join([''.join(row) for row in multiplication_grid])
-
-    # Display the resulting string
-    print(grid_string)
+    mytree.expressionTree = expressionTree(mytree.tree)
+    mytree.expressionTree.printExpressionTree()
     
