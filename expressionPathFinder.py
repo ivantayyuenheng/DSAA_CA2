@@ -1,5 +1,3 @@
-# Created by: IVAN TAY YUEN HENG (2335133)
-
 import networkx as nx
 from fileOutput import OutputFile
 from operation import BaseOperation
@@ -11,7 +9,7 @@ from power import Square
 
 class NumberPathFinder():
     def __init__(self):
-        self.graph = nx.DiGraph()  # Directed Graph
+        self.graph = nx.Graph()  # Convert to undirected graph for MST
         self.operations = {
             "+1": AddOne(),
             "-1": SubtractOne(),
@@ -27,9 +25,13 @@ class NumberPathFinder():
             return self.operations[op].apply(num)
         return None
 
-    def build_graph(self, start, target, max_steps=40, max_num=9999):
+    def build_graph(self, start, max_steps=40, max_num=9999):
+        """
+        Build a graph connecting numbers using allowed operations.
+        This is an undirected graph for MST calculation.
+        """
         self.graph.clear()
-        queue = [(start, 0, "")]  # Track expression string
+        queue = [(start, 0, "")]  # Track (current number, steps, expression)
         visited = {}
         self.graph.add_node(start)
 
@@ -47,31 +49,31 @@ class NumberPathFinder():
                 new_num = self.apply_operation(current, operation)
                 if new_num is not None and new_num >= 0 and new_num not in visited:
                     new_expr = f"({expr}{operation})" if expr else f"({current}{operation})"
-                    self.graph.add_edge(current, new_num, weight=1)
+                    self.graph.add_edge(current, new_num, weight=1)  # Add undirected edges
                     queue.append((new_num, steps + 1, new_expr))
 
-    def find_shortest_path(self, start, target):
+    def find_mst_path(self, start, target):
+        """
+        Find the shortest path using Minimum Spanning Tree (MST).
+        """
         if start not in self.graph or target not in self.graph:
             print(f"\nNo path found from {start} to {target}. Please select different numbers or update operations.") 
             return None, 0, ""
 
-        if not nx.has_path(self.graph, start, target):
-            print(f"\nNo path found from {start} to {target}. Please select different numbers or update operations.")
+        # Compute MST using Kruskal's algorithm
+        mst = nx.minimum_spanning_tree(self.graph, algorithm='kruskal')
+
+        if not nx.has_path(mst, start, target):
+            print(f"\nNo path found from {start} to {target} in the MST.")
             return None, 0, ""
 
-        path = nx.shortest_path(self.graph, source=start, target=target, weight="weight")
+        # Find the path from start to target in the MST
+        path = nx.shortest_path(mst, source=start, target=target)
         steps = len(path) - 1
 
-
-        # Only allow paths with steps less than 40
-        if steps > 40:
-            print("\n❌ The shortest path is higher than 40 steps! Please update your operations or change to a different value.")
-            return None, 0, ""
-    
         if steps == 0:
             print(f"Start and target numbers are not allowed to be the same. Please enter different numbers.")
             return None, 0, ""
-
 
         # Generate expression from path
         expression = str(path[0])
@@ -98,10 +100,10 @@ class NumberPathFinder():
             
             if choice == "1":
                 start, target = self.get_numbers()
-                self.build_graph(start, target)
-                shortest_path, steps, expr = self.find_shortest_path(start, target)
-                if shortest_path:
-                    print(f"\n✅ Shortest path from {start} to {target}: {shortest_path} (Steps: {steps})")
+                self.build_graph(start)
+                mst_path, steps, expr = self.find_mst_path(start, target)
+                if mst_path:
+                    print(f"Shortest path from {start} to {target}: {mst_path} (Steps: {steps})")
                     print(f"Expression: {expr}")
                 
             elif choice == "2":
@@ -127,7 +129,7 @@ class NumberPathFinder():
                     print("\nSave operation cancelled.")
             
             elif choice == "4":
-                print("\nExiting minimum expression path finder program.")
+                print("\nExiting minimum expression path finder (MST Version).")
                 break
             else:
                 print("\nPlease choose from 1 to 4 only")
@@ -170,4 +172,3 @@ class NumberPathFinder():
         else:
             print("\nNo valid operations provided. Operations remain unchanged.")
             print("Current operations:", list(self.operations.keys()))
-
