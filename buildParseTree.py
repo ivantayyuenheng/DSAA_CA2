@@ -11,6 +11,7 @@ class BuildParseTree:
         self.tree = BinaryTree('?')
         self.exp = ""
         self.tokens = []
+        self.history = None
 
     def build(self):
         if self.tokens == None:
@@ -52,7 +53,6 @@ class BuildParseTree:
                 elif t == ')':
                     if not self.stack.isEmpty():
                         currentTree = self.stack.pop()
-
             return self.tree
         
     def printTree(self):

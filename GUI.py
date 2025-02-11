@@ -12,6 +12,7 @@ from randomExpressionGenerator import RandomExpressionGenerator
 class GUI:
     def __init__(self):
         self.title_bar()
+        self.history = history()
 
     def title_bar(self):
         # Show the title bar
@@ -69,6 +70,7 @@ class GUI:
 
     def evaluate_expression_choice(self):
         mytree = BuildParseTree()
+        #mytree.history = history()
         mytree.inputExpression()
         mytree.build()
         result = mytree.evaluate()
