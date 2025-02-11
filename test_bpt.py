@@ -10,8 +10,7 @@ class BuildParseTree:
         self.tree = BinaryTree('?')
         self.exp = ""
         self.tokens = []
-        self.history = history()
-        
+
     def build(self):
         if self.tokens == None:
             print("\nInvalid expression")
@@ -52,9 +51,6 @@ class BuildParseTree:
                 elif t == ')':
                     if not self.stack.isEmpty():
                         currentTree = self.stack.pop()
-
-                #add to history
-                self.history.add(self.tokens, self.evaluate())
             return self.tree
         
     def printTree(self):
@@ -100,11 +96,17 @@ class BuildParseTree:
         self.tokens = Tokeniser(self.exp).tokenise()
         #print(self.tokens)
 
-mytree = BuildParseTree()
-mytree.inputExpression()
-mytree.build()
-result = mytree.evaluate()
-if result != "?":
-    mytree.history.add(mytree.tokens, result)
-    print(f"\nResult of expression evaluation: {result}")
-    mytree.printTree()  
+gui_history = history()
+gui_history.showLast5()
+for i in range(3):
+    mytree = BuildParseTree()
+    mytree.inputExpression()
+    mytree.build()
+    result = mytree.evaluate()
+    if result != "?":
+        gui_history.add(mytree.tokens, result)
+        print(f"\nResult of expression evaluation: {result}")
+        mytree.printTree()
+        gui_history.showLast5()
+
+gui_history.editFromHistory()

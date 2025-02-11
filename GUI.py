@@ -8,6 +8,7 @@ from history import history
 class GUI:
     def __init__(self):
         self.title_bar()
+        self.history = history()
 
     def title_bar(self):
         # Show the title bar
