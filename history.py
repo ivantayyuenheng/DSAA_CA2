@@ -12,17 +12,19 @@ class history:
         print()
         if not self.history:
             print("\nNo history to show.")
-            return
+            return False
         
         for i, (tokens, result) in enumerate(self.history[-5:]):
             print(f"{min(5, len(self.history)) - i}: {''.join(tokens)} = {result}")
+
+        return True
 
     def editFromHistory(self):
 
         #choose from hisory
         if not self.history:
             print("\nNo history to edit.")
-            return
+            return None
         inputChoice = self.inputChoice()
 
         #exit history
@@ -32,7 +34,7 @@ class history:
         #edit from  history
         choice = self.history[-inputChoice]
         self.edit_tokens = self.editTokens(choice[0])
-        print(self.edit_tokens)
+        #print(self.edit_tokens)
 
         #display editting
         for i in range(1, len(self.edit_tokens), 2):
@@ -43,7 +45,7 @@ class history:
             self.updateToken(i)
             print(''.join(self.edit_tokens))
 
-        return self.edit_tokens
+        return ''.join(self.edit_tokens)
 
 
     def editTokens(self, tokens):
@@ -74,7 +76,8 @@ class history:
     def updateToken(self, i):
             invalidFormat = True
             while invalidFormat:
-                updated_tokens = input(f"Enter the updated expression this format {' '.join(['op.' if format == None else 'no.' for format in self.getTokenFormat(self.edit_tokens[i])])}: ")
+                updated_tokens = input(f"Enter the updated expression this format - {' '.join(['op.' if format == None else 'no.' for format in self.getTokenFormat(self.edit_tokens[i])])}: ")
+                updated_tokens = updated_tokens.replace('(', '').replace(')', '')
                 if updated_tokens != '':
                     if self.getTokenFormat(updated_tokens) == self.getTokenFormat(self.edit_tokens[i]):
                         self.edit_tokens[i] = updated_tokens
@@ -101,7 +104,7 @@ class history:
         
     def inputChoice(self):
         try:
-            index = int(input("Please enter the number of the expression history you want to edit:"))
+            index = int(input("Please enter the number of the expression history you want to edit, or 0 to exit:"))
             #not in history
             if index < 0 or index > min(len(self.history), 5):
                 print("Invalid index. Please enter a number between 0 and", min(len(self.history), 5))
@@ -110,8 +113,3 @@ class history:
         except ValueError:
             print("Invalid index. Please enter a number between 0 and", min(len(self.history), 5))
             return self.inputChoice()
-
-
-
-
-print([format for format in [1, 2, 3] if format == 1])

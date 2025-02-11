@@ -14,7 +14,7 @@ class BuildParseTree:
         self.history = None
 
     def build(self):
-        if self.tokens == None:
+        if self.tokens == None or self.tokens == []:
             print("\nError: Invalid expression")
             return None
         else:

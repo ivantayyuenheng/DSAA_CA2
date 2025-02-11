@@ -96,18 +96,18 @@ class BuildParseTree:
         self.tokens = Tokeniser(self.exp).tokenise()
         #print(self.tokens)
 
-gui_history = history()
-gui_history.showLast5()
-for i in range(1):
-    mytree = BuildParseTree()
-    mytree.inputExpression()
-    mytree.build()
-    result = mytree.evaluate()
-    if result != "?":
-        gui_history.add(mytree.tokens, result)
-        print(f"\nResult of expression evaluation: {result}")
-        mytree.printTree()
-        gui_history.showLast5()
+# gui_history = history()
+# gui_history.showLast5()
+# for i in range(1):
+#     mytree = BuildParseTree()
+#     mytree.inputExpression()
+#     mytree.build()
+#     result = mytree.evaluate()
+#     if result != "?":
+#         gui_history.add(mytree.tokens, result)
+#         print(f"\nResult of expression evaluation: {result}")
+#         mytree.printTree()
+#         gui_history.showLast5()
 
-newexpr = gui_history.editFromHistory()
+# newexpr = gui_history.editFromHistory()
 

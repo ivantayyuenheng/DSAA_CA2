@@ -7,12 +7,15 @@ from fileOutput import OutputFile
 from sortExpression import SortExpressions
 from expressionPathFinder import NumberPathFinder
 from randomExpressionGenerator import RandomExpressionGenerator
+from history import history
+from tokeniser import Tokeniser
 
 # For option 5
 class GUI:
     def __init__(self):
-        self.title_bar()
         self.history = history()
+        self.title_bar()
+
 
     def title_bar(self):
         # Show the title bar
@@ -45,7 +48,7 @@ class GUI:
         2. Sort expressions
         3. Minimum expression path finder (Ivan Tay)
         4. Random expression generator (Ivan Tay)
-        5. Extra Feature 1 (Chan Jun Yi)
+        5. Expression history (Chan Jun Yi)
         6. Extra Feature 2 (Chan Jun Yi)
         7. Exit""")
 
@@ -60,7 +63,7 @@ class GUI:
             case '4':
                 self.random_expression_generator()
             case '5':
-                self.cont()
+                self.expresssion_history()
             case '6':
                 self.cont()
             case '7':
@@ -70,7 +73,6 @@ class GUI:
 
     def evaluate_expression_choice(self):
         mytree = BuildParseTree()
-        #mytree.history = history()
         mytree.inputExpression()
         mytree.build()
         result = mytree.evaluate()
@@ -80,6 +82,7 @@ class GUI:
             print(f"\nExpression Tree:")
             mytree.printTree()
             print(f"\nExpression evaluates to: \n{result}")
+            self.history.add(mytree.tokens, result)
 
         self.cont()
 
@@ -111,6 +114,28 @@ class GUI:
     def random_expression_generator(self):
         generator = RandomExpressionGenerator()
         generator.expression_sub_menu()
+        self.cont()
+
+    def expresssion_history(self):
+        isHistory = self.history.showLast5()
+        if isHistory:
+            mytree = BuildParseTree()
+            print()
+            mytree.exp = self.history.editFromHistory()
+            #print(mytree.exp)
+            if mytree.exp != None:
+                mytree.tokens = Tokeniser(mytree.exp).tokenise()
+                #print(mytree.tokens)
+                mytree.build()
+                result = mytree.evaluate()
+                if result != "?":
+                    if isinstance(result, float) and result.is_integer():
+                        result = int(result)
+                    print(f"\nExpression Tree:")
+                    mytree.printTree()
+                    print(f"\nExpression evaluates to: \n{result}")
+                    self.history.add(mytree.tokens, result)
+
         self.cont()
             
 
