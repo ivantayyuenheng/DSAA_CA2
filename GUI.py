@@ -2,7 +2,6 @@ from buildParseTree import BuildParseTree
 from fileHandling import ReadFile
 from fileOutput import OutputFile
 from sortExpression import SortExpressions
-from expressionTree import expressionTree
 
 class GUI:
     def __init__(self):
@@ -82,8 +81,8 @@ class GUI:
 
         if file_content:  # Check if content is retrieved
             sorter = SortExpressions(file_content)  # Sort expressions
-            success = sorter.sort_expressions()  
-            if success:
+            success = sorter.sort_expressions()  # Sort expressions
+            if success != False:
                 output_file.send_file(str(sorter.sortedList))  # Write to output file
             else:
                 print("Sorting failed due to invalid expressions. Output file was not created.")

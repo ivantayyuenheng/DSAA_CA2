@@ -1,9 +1,12 @@
-class expressionTree:
-    def __init__(self, tree):
-        self.tree = tree
-        self.row = 0
-        self.col = 0
+from tree import Tree
 
+class ExpressionTree(Tree):
+    def __init__(self, tree):
+        super().__init__()
+        self.tree = tree
+
+    def printTree(self):
+        self.printExpressionTree()
 
     def printExpressionTree(self):
         self.data = self.tree.myStack
@@ -15,14 +18,13 @@ class expressionTree:
 
         multiplication_grid = self.create_multiplication_grid(self.row, self.col)
 
-        for col_index, items in enumerate(processed_array_within):  # Iterate through columns of the array
-            for value, row_index in items:  # For each value in the array column
-                multiplication_grid[row_index][col_index] = value  # Place value into the correct grid position
+        for col_index, items in enumerate(processed_array_within):
+            for value, row_index in items:
+                multiplication_grid[row_index][col_index] = value
 
         grid_string = '\n'.join([''.join(row) for row in multiplication_grid])
-
-        # Display the resulting string
         print(grid_string)
+
 
     #for printing expression tree
     def split_elements_within_array(self):

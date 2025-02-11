@@ -1,6 +1,5 @@
 import os
 
-
 # Read input file
 class ReadFile:
     def __init__(self, option):
