@@ -43,9 +43,10 @@ class SortedList:
         # Output
         output = []
         for key in sorted(group.keys(), reverse=True):
-            output.append(f"*** Expressions with value=> {key}")
+            output.append(f"*** Expressions with value= {key}")
             for value in group[key]:
                 output.append(f"{value}==>{key}")
-            output.append("\n")
+
+            output.append("")
 
         return "\n".join(output)

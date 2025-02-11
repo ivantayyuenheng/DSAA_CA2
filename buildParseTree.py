@@ -12,7 +12,7 @@ class BuildParseTree:
 
     def build(self):
         if self.tokens == None:
-            print("\nInvalid expression")
+            print("\nError: Invalid expression")
             return None
         else:
             self.stack.push(self.tree)
@@ -84,7 +84,9 @@ class BuildParseTree:
             return left_val * right_val
         elif op == '/':
             if right_val == 0:
-                raise ZeroDivisionError("Division by zero erorr.")
+                print("Error: Division by zero")
+                return None
+                
             return left_val / right_val
         elif op == '**':
             return left_val ** right_val

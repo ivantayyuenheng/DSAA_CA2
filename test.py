@@ -14,7 +14,7 @@ class BuildParseTree:
     def build(self):
         self.inputExpression()
         if self.tokens == None:
-            print("Invalid expression")
+            print("Invalid expression. Please rewrite your expression again.")
             return None
         else:
             self.stack.push(self.tree)
@@ -126,6 +126,10 @@ while True:
     mytree.build()
     print()
     result = mytree.evaluate()
+
+    if isinstance(result, float) and result.is_integer():
+        result = int(result)
+        
     print(f"Result of expression evaluation: {result}")
 
     def getMyStack():

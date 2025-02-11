@@ -68,17 +68,27 @@ class GUI:
         mytree.build()
         result = mytree.evaluate()
         if result != "?":
-            print(f"\nResult of expression evaluation: {result}")
-            mytree.printTree()  
+            if isinstance(result, float) and result.is_integer():
+                result = int(result)
+            print(f"\nExpression Tree:")
+            mytree.printTree()
+            print(f"\nExpression evaluates to: \n{result}")
 
         self.cont()
 
     def sort_expressions(self):
         file_content = ReadFile(1).get_content()  # Read file content
+        output_file = OutputFile()  # Create an OutputFile object
 
         if file_content:  # Check if content is retrieved
             sorter = SortExpressions(file_content)  # Sort expressions
-            sorter.sort_expressions()  # Sort expressions
+            success = sorter.sort_expressions()  
+            if success:
+                output_file.send_file(str(sorter.sortedList))  # Write to output file
+            else:
+                print("Sorting failed due to invalid expressions. Output file was not created.")
+
+            output_file.send_file(str(sorter.sortedList))  # Write to output file
         else:
             print("Error: Unable to read file content.")
             
