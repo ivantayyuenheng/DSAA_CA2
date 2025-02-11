@@ -1,5 +1,3 @@
-from buildParseTree import BuildParseTree
-
 class history:
     def __init__(self):
         self.history = []
@@ -22,16 +20,4 @@ class history:
         else:
             self.show()
 
-while True:
-    mytree = BuildParseTree()
-    mytree.history = history()
-    mytree.inputExpression()
-    mytree.build()
-    result = mytree.evaluate()
-    if result != "?":
-        mytree.history.add(mytree.tokens, result)
-        print(f"\nResult of expression evaluation: {result}")
-        mytree.printTree()  
-
-    mytree.history.showLast5()
 

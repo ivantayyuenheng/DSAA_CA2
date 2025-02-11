@@ -70,7 +70,6 @@ class GUI:
         mytree.build()
         result = mytree.evaluate()
         if result != "?":
-            mytree.history.add(mytree.tokens, result)
             print(f"\nResult of expression evaluation: {result}")
             mytree.printTree()  
 

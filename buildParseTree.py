@@ -51,9 +51,6 @@ class BuildParseTree:
                 elif t == ')':
                     if not self.stack.isEmpty():
                         currentTree = self.stack.pop()
-
-                #add to history
-                self.history.add(self.tokens, self.evaluate())
             return self.tree
         
     def printTree(self):

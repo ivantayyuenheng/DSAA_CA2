@@ -2,6 +2,7 @@ from tree import BinaryTree
 from stack import Stack
 from tokeniser import Tokeniser
 from expressionTree import expressionTree
+from history import history
 
 class BuildParseTree:
     def __init__(self):
@@ -9,12 +10,11 @@ class BuildParseTree:
         self.tree = BinaryTree('?')
         self.exp = ""
         self.tokens = []
-        self.expressionTree = None
-
+        self.history = history()
+        
     def build(self):
-        self.inputExpression()
         if self.tokens == None:
-            print("Invalid expression")
+            print("\nInvalid expression")
             return None
         else:
             self.stack.push(self.tree)
@@ -53,7 +53,17 @@ class BuildParseTree:
                     if not self.stack.isEmpty():
                         currentTree = self.stack.pop()
 
+                #add to history
+                self.history.add(self.tokens, self.evaluate())
             return self.tree
+        
+    def printTree(self):
+        self.tree.stackInorder(0, [])
+        #print("mystack:")
+        #print(mytree.tree.myStack)
+        
+        self.expressionTree = expressionTree(self.tree)
+        self.expressionTree.printExpressionTree()
 
     def evaluate(self, node=None):
 
@@ -88,52 +98,13 @@ class BuildParseTree:
     def inputExpression(self):
         self.exp = input("Please enter the expression you want to evaluate:\n")
         self.tokens = Tokeniser(self.exp).tokenise()
-        print(self.tokens)
+        #print(self.tokens)
 
-    #for printing expression tree
-    def split_elements_within_array(self, data):
-        result = []
-        for item in data:
-            value, index = item
-            # Convert value to string and split into individual characters
-            value_str = str(value)
-            split_subarray = []
-            for i, char in enumerate(value_str):
-                split_subarray.append([char, index + i])
-            result.append(split_subarray)
-        return result
-    
-    def find_highest_row(self, data):
-        max_index = float('-inf')
-        for subarray in data:
-            for element in subarray:
-                _, index = element
-                if index > max_index:
-                    max_index = index
-        return max_index
-    
-    def create_multiplication_grid(self, rows, columns):
-        grid = []
-        for row in range(rows):
-            grid_row = []
-            for col in range(columns):
-                grid_row.append(' ')
-            grid.append(grid_row)
-        return grid
-
-while True:
-    mytree = BuildParseTree()
-    mytree.build()
-    print()
-    result = mytree.evaluate()
-    print(f"Result of expression evaluation: {result}")
-
-    def getMyStack():
-        mytree.tree.stackInorder(0, [])
-        #print("mystack:")
-        #print(mytree.tree.myStack)
-    getMyStack()
-
-    mytree.expressionTree = expressionTree(mytree.tree)
-    mytree.expressionTree.printExpressionTree()
-    
+mytree = BuildParseTree()
+mytree.inputExpression()
+mytree.build()
+result = mytree.evaluate()
+if result != "?":
+    mytree.history.add(mytree.tokens, result)
+    print(f"\nResult of expression evaluation: {result}")
+    mytree.printTree()  
