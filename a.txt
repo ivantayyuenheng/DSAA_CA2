@@ -1,3 +1,0 @@
-Generated Expression (Difficulty 2): ((5 + 9) ** 1) = 14
-Generated Expression (Difficulty 1): (5 / 9) = 0.56
-Generated Expression (Difficulty 3): (((((92 + 87) / 96) - 46) - 84) - 20) = -148.14

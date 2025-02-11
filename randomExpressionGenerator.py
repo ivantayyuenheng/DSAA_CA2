@@ -143,9 +143,13 @@ class RandomExpressionGenerator:
         print(f"✅ Expressions saved to {output_handler.get_output_file_name()}")
 
     def evaluate_expression_choice(self):
-        """Evaluates an expression using a parse tree."""
-        evaluate_expression = BuildParseTree()
-        tree = evaluate_expression.build()
-        result = evaluate_expression.evaluate()
-
-        print(tree)
+        mytree = BuildParseTree()
+        mytree.inputExpression()
+        mytree.build()
+        result = mytree.evaluate()
+        if result != "?":
+            if isinstance(result, float) and result.is_integer():
+                result = int(result)
+            print(f"\nExpression Tree:")
+            mytree.printTree()
+            print(f"\nExpression evaluates to: \n{result}")

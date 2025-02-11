@@ -30,3 +30,4 @@ class OutputFile:
     # Get the output file namem
     def get_output_file_name(self):
         return self.__outputfile
+    

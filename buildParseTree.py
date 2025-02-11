@@ -1,6 +1,7 @@
-from tree import BinaryTree
 from stack import Stack
 from tokeniser import Tokeniser
+from expressionTree import ExpressionTree
+from binaryTree import BinaryTree
 
 class BuildParseTree:
     def __init__(self):
@@ -10,16 +11,15 @@ class BuildParseTree:
         self.tokens = []
 
     def build(self):
-        self.inputExpression()
         if self.tokens == None:
-            print("Invalid expression")
+            print("\nError: Invalid expression")
             return None
         else:
             self.stack.push(self.tree)
             currentTree = self.tree
 
-            print("Initial Stack:")
-            print(self.stack.getValues())  # Display initial stack
+            #print("Initial Stack:")
+            #print(self.stack.getValues())  # Display initial stack
 
             for t in self.tokens:
                 # RULE 1: If token is '(' add a new node as left child
@@ -52,6 +52,14 @@ class BuildParseTree:
                         currentTree = self.stack.pop()
 
             return self.tree
+        
+    def printTree(self):
+        self.tree.stackInorder(0, [])
+        #print("mystack:")
+        #print(mytree.tree.myStack)
+        
+        self.expressionTree = ExpressionTree(self.tree)
+        self.expressionTree.printExpressionTree()
 
     def evaluate(self, node=None):
 
@@ -76,7 +84,8 @@ class BuildParseTree:
             return left_val * right_val
         elif op == '/':
             if right_val == 0:
-                raise ZeroDivisionError("Division by zero erorr.")
+                print("Error: Division by zero")
+                return "?"
             return left_val / right_val
         elif op == '**':
             return left_val ** right_val
@@ -86,4 +95,4 @@ class BuildParseTree:
     def inputExpression(self):
         self.exp = input("Please enter the expression you want to evaluate:\n")
         self.tokens = Tokeniser(self.exp).tokenise()
-        print(self.tokens)
+        #print(self.tokens)

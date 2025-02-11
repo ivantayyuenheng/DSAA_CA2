@@ -34,9 +34,6 @@ class Stack:
         
     def getValues(self):
         return [self._getNodeRepresentation(node) for node in self.__list]
-    def _getNodeRepresentation(self, node):
-        # Helper to extract key values from BinaryTree nodes
-        return f"Node(key={node.getKey()}, left={self._childKey(node.getLeftTree())}, right={self._childKey(node.getRightTree())})"
 
     def _childKey(self, child):
         return child.getKey() if child is not None else "None"

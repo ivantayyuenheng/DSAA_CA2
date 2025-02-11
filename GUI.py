@@ -67,20 +67,32 @@ class GUI:
                 print("\nPlease choose from 1 to 7 only")     
 
     def evaluate_expression_choice(self):
-        evaluate_expression = BuildParseTree()
-        tree = evaluate_expression.build()
-        result = evaluate_expression.evaluate()
+        mytree = BuildParseTree()
+        mytree.inputExpression()
+        mytree.build()
+        result = mytree.evaluate()
+        if result != "?":
+            if isinstance(result, float) and result.is_integer():
+                result = int(result)
+            print(f"\nExpression Tree:")
+            mytree.printTree()
+            print(f"\nExpression evaluates to: \n{result}")
 
-        print(tree)
         self.cont()
 
     def sort_expressions(self):
-        file_content = ReadFile().get_content()  # Read file content
+        file_content = ReadFile(1).get_content()  # Read file content
+        output_file = OutputFile()  # Create an OutputFile object
 
         if file_content:  # Check if content is retrieved
-            evaluate_expression = BuildParseTree()  # Create instance only when needed
-            sorted_expressions = SortExpressions(file_content)  # Sort expressions
-            print("Sorted Expressions:", sorted_expressions)  # Display sorted result
+            sorter = SortExpressions(file_content)  # Sort expressions
+            success = sorter.sort_expressions()  # Sort expressions
+            if success != False:
+                output_file.send_file(str(sorter.sortedList))  # Write to output file
+            else:
+                print("Sorting failed due to invalid expressions. Output file was not created.")
+
+            output_file.send_file(str(sorter.sortedList))  # Write to output file
         else:
             print("Error: Unable to read file content.")
             
