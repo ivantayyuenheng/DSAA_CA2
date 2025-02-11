@@ -98,7 +98,7 @@ class BuildParseTree:
 
 gui_history = history()
 gui_history.showLast5()
-for i in range(3):
+for i in range(1):
     mytree = BuildParseTree()
     mytree.inputExpression()
     mytree.build()
@@ -109,4 +109,5 @@ for i in range(3):
         mytree.printTree()
         gui_history.showLast5()
 
-gui_history.editFromHistory()
+newexpr = gui_history.editFromHistory()
+
