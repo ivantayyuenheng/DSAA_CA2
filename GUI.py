@@ -47,7 +47,7 @@ class GUI:
         3. Minimum expression path finder (Ivan Tay)
         4. Random expression generator (Ivan Tay)
         5. Expression history (Chan Jun Yi)
-        6. Extra Feature 2 (Chan Jun Yi)
+        6. Simplify algebric expression (Chan Jun Yi)
         7. Exit""")
 
     def option_handling(self, option):
@@ -63,7 +63,7 @@ class GUI:
             case '5':
                 self.expresssion_history()
             case '6':
-                self.cont()
+                self.algebric_equation()
             case '7':
                 self.exit_program()
             case _:
@@ -142,7 +142,7 @@ class GUI:
         mytree.build()
         try:
             result = mytree.evaluate()
-            print(f"Result: {result}")
+            print(f"Simplified expression: {mytree.simplify(result)}")
         except Exception as e:
             print(e)
             

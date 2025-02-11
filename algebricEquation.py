@@ -6,7 +6,6 @@ from tokeniser import Tokeniser
 class AlgebricEquation(BuildParseTree):
     def __init__(self):
         super().__init__() 
-        # --- Helper methods to work with our polynomial representation ---
 
     def make_poly(self, token):
         """
@@ -158,6 +157,20 @@ class AlgebricEquation(BuildParseTree):
         else:
             raise ValueError(f"Invalid operator: {op}")
         
+    def simplify(self, result):
+        power, constant = result
+        terms = [
+            f"(x**{exp})" if coeff == 1 else f"({int(coeff) if coeff.is_integer() else coeff}*x)" if exp == 1 else f"(({int(coeff) if coeff.is_integer() else coeff}*x)**{exp})"
+            for exp, coeff in sorted(power.items(), reverse=True)
+        ] + [str(int(constant) if isinstance(constant, float) and constant.is_integer() else constant)]
+
+        def recursion(lst):
+            return lst[0] if len(lst) == 1 else f"({recursion(lst[:-1])}+{lst[-1]})"
+
+        return recursion(terms)
+
+
+
     def inputExpression(self):
         self.exp = input("Please enter the expression you want to evaluate:\n")
         self.tokens = AlgebricTokeniser(self.exp).tokenise()
