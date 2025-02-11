@@ -6,6 +6,7 @@ from sortExpression import SortExpressions
 from expressionPathFinder import NumberPathFinder
 from randomExpressionGenerator import RandomExpressionGenerator
 from history import history
+from algebricEquation import AlgebricEquation
 from tokeniser import Tokeniser
 
 class GUI:
@@ -134,6 +135,16 @@ class GUI:
                     self.history.add(mytree.tokens, result)
 
         self.cont()
+
+    def algebric_equation(self):
+        mytree = AlgebricEquation()
+        mytree.inputExpression()
+        mytree.build()
+        try:
+            result = mytree.evaluate()
+            print(f"Result: {result}")
+        except Exception as e:
+            print(e)
             
 
     def exit_program(self):

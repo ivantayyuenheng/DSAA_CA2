@@ -7,6 +7,7 @@ class Tokeniser:
         self.output = []
 
     def tokenise(self):
+        #print(self.expression)
         if self.is_valid_expression():
             number = ""
             i = 0 
@@ -114,6 +115,13 @@ class Tokeniser:
             i += 1
 
         return not stack  # Stack should be empty if all brackets are properly closed
+    
+    def algebric_tokenise(self):
+        #print(self.expression)
+        expression = self.expression
+        self.expression = ''.join(['1' if char.isalpha() else str(char) for char in expression])
+        #print(self.expression)
+        return self.expression
 
     def is_valid_subexpression(self, sub_expr):
         """

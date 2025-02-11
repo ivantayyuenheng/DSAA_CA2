@@ -11,9 +11,9 @@ class BuildParseTree:
         self.tree = BinaryTree('?')
         self.exp = ""
         self.tokens = []
-        self.history = None
 
     def build(self):
+        #print(self.tokens)
         if self.tokens == None or self.tokens == []:
             print("\nError: Invalid expression")
             return None

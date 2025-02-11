@@ -1,60 +1,13 @@
-from stack import Stack
-from tokeniser import Tokeniser
-from expressionTree import ExpressionTree
-from binaryTree import BinaryTree
 import re
+from test_bpt import BuildParseTree
+from algebricTokeniser import AlgebricTokeniser
+from tokeniser import Tokeniser
 
-class BuildParseTree:
+class AlgebricEquation(BuildParseTree):
     def __init__(self):
-        self.stack = Stack()
-        self.tree = BinaryTree('?')
-        self.exp = ""
-        self.tokens = []
-        self.variables = {}  # Dictionary to store variable values
-
-    def build(self):
-        if self.tokens is None or self.tokens == []:
-            print("\nError: Invalid expression")
-            return None
-        else:
-            self.stack.push(self.tree)
-            currentTree = self.tree
-
-            for t in self.tokens:
-                if t == '(':
-                    currentTree.insertLeft('?')
-                    self.stack.push(currentTree)
-                    currentTree = currentTree.getLeftTree()
-
-                elif t in {'+', '-', '*', '/', '**'}:
-                    currentTree.setKey(t)
-                    currentTree.insertRight('?')
-                    self.stack.push(currentTree)
-                    currentTree = currentTree.getRightTree()
-
-                elif t not in {'+', '-', '*', '/', ')', '**'}:
-                    if t.isdigit():  # If token is a number
-                        currentTree.setKey(float(t))
-                    elif t.isalpha():  # If token is purely alphabetical
-                            currentTree.setKey(t)  # Treat as string literal
-                    else:
-                        try:
-                            currentTree.setKey(float(t))  # Try parsing as a number
-                        except ValueError:
-                            currentTree.setKey(t)  # Otherwise, treat as a string
-                    currentTree = self.stack.pop()
-
-                elif t == ')':
-                    if not self.stack.isEmpty():
-                        currentTree = self.stack.pop()
-            return self.tree
-
-    def printTree(self):
-        self.tree.stackInorder(0, [])
-        self.expressionTree = ExpressionTree(self.tree)
-        self.expressionTree.printExpressionTree()
-
+        super().__init__() 
         # --- Helper methods to work with our polynomial representation ---
+
     def make_poly(self, token):
         """
         Given a token (either a number or a variable expression) return
@@ -96,10 +49,6 @@ class BuildParseTree:
         raise ValueError("Unsupported token type in make_poly.")
 
     def poly_add(self, p1, p2):
-        """
-        Add two polynomials in our representation.
-        p1 and p2 are of the form [dict, constant].
-        """
         new_dict = {}
         # Add variable parts
         for power, coeff in p1[0].items():
@@ -111,9 +60,6 @@ class BuildParseTree:
         return [new_dict, new_const]
 
     def poly_sub(self, p1, p2):
-        """
-        Subtract p2 from p1.
-        """
         new_dict = {}
         for power, coeff in p1[0].items():
             new_dict[power] = coeff
@@ -123,9 +69,6 @@ class BuildParseTree:
         return [new_dict, new_const]
 
     def poly_mul(self, p1, p2):
-        """
-        Multiply two polynomials.
-        """
         new_dict = {}
         # Multiply variable parts (dictionary * dictionary)
         for pwr1, coef1 in p1[0].items():
@@ -153,21 +96,34 @@ class BuildParseTree:
         new_dict = {p: coef / p2[1] for p, coef in p1[0].items()}
         new_const = p1[1] / p2[1]
         return [new_dict, new_const]
+    
+    def poly_inv(self, p):
+        if not p[0]:
+            if p[1] == 0:
+                raise ZeroDivisionError("Zero polynomial not invertible")
+            return [{}, 1 / p[1]]
+
+        if len(p[0]) == 1 and p[1] == 0:
+            for q, coef in p[0].items():
+                if coef == 0:
+                    raise ZeroDivisionError("Division by zero")
+                return [{-q: 1 / coef}, 0]
+        raise ValueError("Polynomial not invertible")
 
     def poly_pow(self, p, n):
-        """
-        Raise polynomial p to the non-negative integer power n.
-        """
         if n < 0:
-            raise ValueError("Negative exponent not supported for polynomials")
-        # Start with the polynomial "1" (which is [ {}, 1 ])
-        result = [{}, 1]
-        for _ in range(n):
-            result = self.poly_mul(result, p)
-        return result
+            inv = self.poly_inv(p)
+            return self.poly_pow(inv, -n)
+        else:
+            result = [{}, 1]
+            for _ in range(n):
+                result = self.poly_mul(result, p)
+            return result
+            
 
     # --- Modified evaluate method ---
     def evaluate(self, node=None):
+
         if node is None:
             node = self.tree
 
@@ -201,3 +157,8 @@ class BuildParseTree:
             return self.poly_pow(left_poly, int(exponent))
         else:
             raise ValueError(f"Invalid operator: {op}")
+        
+    def inputExpression(self):
+        self.exp = input("Please enter the expression you want to evaluate:\n")
+        self.tokens = AlgebricTokeniser(self.exp).tokenise()
+    
