@@ -85,8 +85,7 @@ class BuildParseTree:
         elif op == '/':
             if right_val == 0:
                 print("Error: Division by zero")
-                return None
-                
+                return "?"
             return left_val / right_val
         elif op == '**':
             return left_val ** right_val
