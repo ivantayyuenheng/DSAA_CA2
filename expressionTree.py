@@ -1,4 +1,4 @@
-# Created by: IVAN TAY YUEN HENG (2335133)
+# Created by: IVAN TAY YUEN HENG (2335133) and CHAN JUN YI (2309347)
 
 from tree import Tree
 

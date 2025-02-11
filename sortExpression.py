@@ -4,7 +4,6 @@ from tokeniser import Tokeniser
 from sortedList import SortedList
 from sortedNode import Node
 
-
 class SortExpressions():
     def __init__(self, file_content):
         self.file_content = file_content
@@ -27,7 +26,6 @@ class SortExpressions():
                 self.sortedList.insert(node)
 
         # print(self.sortedList)
-
     
     def evaluateExpressions(self):
         results = []
@@ -48,8 +46,6 @@ class SortExpressions():
                 if isinstance(result, float) and result.is_integer():
                     result = int(result)
 
-
-                
                 # Append the expression and result as a tuple
                 results.append((exp, result))
 

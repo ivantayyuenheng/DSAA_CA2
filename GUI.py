@@ -1,6 +1,4 @@
-
 # Created by: IVAN TAY YUEN HENG (2335133) and CHAN JUN YI (2309347)
-
 from buildParseTree import BuildParseTree
 from fileHandling import ReadFile
 from fileOutput import OutputFile
@@ -10,7 +8,6 @@ from randomExpressionGenerator import RandomExpressionGenerator
 from history import history
 from tokeniser import Tokeniser
 
-# For option 5
 class GUI:
     def __init__(self):
         self.history = history()

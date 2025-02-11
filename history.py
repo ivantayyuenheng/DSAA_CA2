@@ -1,4 +1,5 @@
-from tokeniser import Tokeniser
+# Created by: CHAN JUN YI (2309347)
+from partialTokeniser import partialTokeniser
 
 class history:
     def __init__(self):
@@ -90,7 +91,7 @@ class history:
     def getTokenFormat(self, tokens):
         #print()
         #print(tokens)
-        tokens = Tokeniser(tokens).partial_tokenise()
+        tokens = partialTokeniser(tokens).partial_tokenise()
         #print(tokens)
         format = []
         for i in range(len(tokens)):

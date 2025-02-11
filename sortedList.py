@@ -53,6 +53,4 @@ class SortedList:
 
             output.append("")
 
-
-
         return "\n".join(output)
