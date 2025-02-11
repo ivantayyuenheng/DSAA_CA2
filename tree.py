@@ -1,3 +1,4 @@
+# Created by: IVAN TAY YUEN HENG (2335133) 
 class Tree:
     def __init__(self):
         self.myStack = []

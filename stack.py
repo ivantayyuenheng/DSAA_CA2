@@ -1,3 +1,5 @@
+# Created by: IVAN TAY YUEN HENG (2335133) and CHAN JUN YI (2309347)
+
 class Stack:
     def __init__(self):
         self.__list = []

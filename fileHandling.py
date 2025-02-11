@@ -1,3 +1,5 @@
+# Created by: IVAN TAY YUEN HENG (2335133)
+
 import os
 
 # Read input file
@@ -33,8 +35,7 @@ class ReadFile:
 
         for letter in content:          
             if letter not in set("1234567890.+-*/() \n"):
-                print(letter)
-                print("File contains invalid content. Please resend the file.")
+                print("\nFile contains invalid content. Please resend the file.")
                 return False
         return True
 

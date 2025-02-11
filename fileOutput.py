@@ -1,3 +1,4 @@
+# Created by: IVAN TAY YUEN HENG (2335133)
 # Read output file
 class OutputFile:
     def __init__(self):

@@ -1,3 +1,5 @@
+# Created by: IVAN TAY YUEN HENG (2335133)
+
 import networkx as nx
 from fileOutput import OutputFile
 from operation import BaseOperation

@@ -1,10 +1,10 @@
+# Created by IVAN TAY YUEN HENG (2335133)
 class Node:
     def __init__(self, data):
         self.data = data
         self.nextNode = None
 
     def __lt__(self, other):
-        print(self.data[1], other.data[1])
         if self.data[1] != other.data[1]:
             return self.data[1] > other.data[1]  
         if self.data[0] != other.data[0]:

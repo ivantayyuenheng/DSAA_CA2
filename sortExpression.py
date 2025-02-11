@@ -1,3 +1,4 @@
+# Created by IVAN TAY YUEN HENG (2335133)
 from buildParseTree import BuildParseTree
 from tokeniser import Tokeniser
 from sortedList import SortedList
@@ -25,7 +26,7 @@ class SortExpressions():
                 node = Node((expr, result))  # Create a Node with (expression, result)
                 self.sortedList.insert(node)
 
-        print(self.sortedList)
+        # print(self.sortedList)
 
     
     def evaluateExpressions(self):

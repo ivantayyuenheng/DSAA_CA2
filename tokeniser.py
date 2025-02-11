@@ -1,3 +1,5 @@
+# Created by: IVAN TAY YUEN HENG (2335133) and CHAN JUN YI (2309347)
+
 class Tokeniser:
     def __init__(self, expression):
         self.expression = expression

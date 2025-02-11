@@ -1,4 +1,5 @@
 
+# Created by: IVAN TAY YUEN HENG (2335133) and CHAN JUN YI (2309347)
 
 from buildParseTree import BuildParseTree
 from fileHandling import ReadFile
@@ -88,6 +89,8 @@ class GUI:
             sorter = SortExpressions(file_content)  # Sort expressions
             success = sorter.sort_expressions()  # Sort expressions
             if success != False:
+                print("\n>>>Evaluation and sorting started:\n")
+                print(sorter.sortedList)
                 output_file.send_file(str(sorter.sortedList))  # Write to output file
             else:
                 print("Sorting failed due to invalid expressions. Output file was not created.")

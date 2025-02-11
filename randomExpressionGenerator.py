@@ -1,3 +1,4 @@
+# Created by: IVAN TAY YUEN HENG (2335133)
 import random
 from fileOutput import OutputFile  # Import file output handler
 from buildParseTree import BuildParseTree  # Import expression evaluator
@@ -108,7 +109,7 @@ class RandomExpressionGenerator:
                 return
             
 
-            user_input = input("Enter your answer: ")
+            user_input = input("Enter your answer (2 decimal points): ")
 
             try:
                 user_answer = round(float(user_input), 2)
