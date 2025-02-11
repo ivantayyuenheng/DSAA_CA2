@@ -150,7 +150,7 @@ class NumberPathFinder():
         print("Operations allow to add or remove are (+1 -1 *2 /2 **2)")
         new_operations = input("Enter new operations separated by spaces (e.g., +1 -1 *2): ").strip().split()
         
-        # Define a mapping of valid operations to their corresponding objects
+        # Map of valid operations to their corresponding objects
         operation_classes = {
             "+1": AddOne(),
             "-1": SubtractOne(),
