@@ -14,17 +14,28 @@ class history:
             print(f"{min(5, len(self.history)) - i}: {''.join(tokens)} = {result}")
 
     def editFromHistory(self):
+        if not self.history:
+            print("\nNo history to edit.")
+            return
         inputChoice = self.inputChoice()
+        #exit history
+        if inputChoice == 0:
+            return
+        #edit from  history
+        choice = self.history[-inputChoice]
+        print(choice)
         
-
     def inputChoice(self):
-    
-        choice = input("Please enter the number of the expression history you want to edit:")
-        while choice < len(self.history) and -1 < choice < 6 :
-            print("Please enter a valid number")
-            choice = input("Please enter the number of the expression history you want to edit:")
-
-        print("accept")
+        try:
+            index = int(input("Please enter the number of the expression history you want to edit:"))
+            #not in history
+            if index < 0 or index > min(len(self.history), 5):
+                print("Invalid index. Please enter a number between 0 and", min(len(self.history), 5))
+                return self.inputChoice()
+            return index
+        except ValueError:
+            print("Invalid index. Please enter a number between 0 and", min(len(self.history), 5))
+            return self.inputChoice()
 
 
 
