@@ -3,6 +3,7 @@ from fileHandling import ReadFile
 from fileOutput import OutputFile
 from sortExpression import SortExpressions
 from expressionTree import expressionTree
+from history import history
 
 class GUI:
     def __init__(self):
@@ -64,10 +65,12 @@ class GUI:
 
     def evaluate_expression_choice(self):
         mytree = BuildParseTree()
+        #mytree.history = history()
         mytree.inputExpression()
         mytree.build()
         result = mytree.evaluate()
         if result != "?":
+            mytree.history.add(mytree.tokens, result)
             print(f"\nResult of expression evaluation: {result}")
             mytree.printTree()  
 
