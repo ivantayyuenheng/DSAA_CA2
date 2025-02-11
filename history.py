@@ -6,6 +6,7 @@ class history:
         self.history.append((tokens, result))
 
     def showLast5(self):
+        print()
         if not self.history:
             print("\nNo history to show.")
             return
@@ -23,7 +24,7 @@ class history:
             return
         #edit from  history
         choice = self.history[-inputChoice]
-        print(choice)
+        print(f"{''.join(choice[0])} = {choice[1]}")
         
     def inputChoice(self):
         try:
