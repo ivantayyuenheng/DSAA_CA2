@@ -145,7 +145,8 @@ class GUI:
             print(f"Simplified expression: {mytree.simplify(result)}")
         except Exception as e:
             print(e)
-            
+
+        self.cont()
 
     def exit_program(self):
         # Option 7: Exit the program.   

@@ -1,11 +1,48 @@
+# Created by: CHAN JUN YI (2309347)
 import re
-from test_bpt import BuildParseTree
+from buildParseTree import BuildParseTree
 from algebricTokeniser import AlgebricTokeniser
-from tokeniser import Tokeniser
 
 class AlgebricEquation(BuildParseTree):
     def __init__(self):
         super().__init__() 
+
+    def build(self):
+        if self.tokens is None or self.tokens == []:
+            print("\nError: Invalid expression")
+            return None
+        else:
+            self.stack.push(self.tree)
+            currentTree = self.tree
+
+            for t in self.tokens:
+                if t == '(':
+                    currentTree.insertLeft('?')
+                    self.stack.push(currentTree)
+                    currentTree = currentTree.getLeftTree()
+
+                elif t in {'+', '-', '*', '/', '**'}:
+                    currentTree.setKey(t)
+                    currentTree.insertRight('?')
+                    self.stack.push(currentTree)
+                    currentTree = currentTree.getRightTree()
+
+                elif t not in {'+', '-', '*', '/', ')', '**'}:
+                    if t.isdigit():  # If token is a number
+                        currentTree.setKey(float(t))
+                    elif t.isalpha():  # If token is purely alphabetical
+                            currentTree.setKey(t)  # Treat as string literal
+                    else:
+                        try:
+                            currentTree.setKey(float(t))  # Try parsing as a number
+                        except ValueError:
+                            currentTree.setKey(t)  # Otherwise, treat as a string
+                    currentTree = self.stack.pop()
+
+                elif t == ')':
+                    if not self.stack.isEmpty():
+                        currentTree = self.stack.pop()
+            return self.tree
 
     def make_poly(self, token):
         """
@@ -44,7 +81,7 @@ class AlgebricEquation(BuildParseTree):
                     # and the constant part is zero.
                     return [{power: coef}, 0]
                 else:
-                    raise ValueError(f"Unable to parse token: {token}")
+                    raise ValueError()
         raise ValueError("Unsupported token type in make_poly.")
 
     def poly_add(self, p1, p2):
@@ -160,16 +197,30 @@ class AlgebricEquation(BuildParseTree):
     def simplify(self, result):
         power, constant = result
         terms = [
-            f"(x**{exp})" if coeff == 1 else f"({int(coeff) if coeff.is_integer() else coeff}*x)" if exp == 1 else f"(({int(coeff) if coeff.is_integer() else coeff}*x)**{exp})"
+    #     nothing              |           multiple of 1           |            power 1                                                  |                 not power 1             
+            f"" if coeff == 0 else f"(x**{exp})" if coeff == 1 else f"({int(coeff) if coeff.is_integer() else coeff}*x)" if exp == 1 else f"(({int(coeff) if coeff.is_integer() else coeff}*x)**{exp})"
             for exp, coeff in sorted(power.items(), reverse=True)
-        ] + [str(int(constant) if isinstance(constant, float) and constant.is_integer() else constant)]
+        ] 
+
+        if constant != 0:
+            terms = terms + [str(int(constant) if isinstance(constant, float) and constant.is_integer() else constant)] #remove floating point
 
         def recursion(lst):
-            return lst[0] if len(lst) == 1 else f"({recursion(lst[:-1])}+{lst[-1]})"
+            #print(lst)
+            if len(lst) == 1:
+                return lst[0]
+            elif not lst:
+                return "0"
+            elif lst[0] == "" and len(lst) == 1:
+                return "0"
+            elif lst[0] == "":
+                return lst[-1]
+            elif lst[-1] == "":
+                return lst[0]
+            else:
+                return f"({recursion(lst[:-1])}+{lst[-1]})"
 
         return recursion(terms)
-
-
 
     def inputExpression(self):
         self.exp = input("Please enter the expression you want to evaluate:\n")
