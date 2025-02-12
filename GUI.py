@@ -5,13 +5,13 @@ from fileOutput import OutputFile
 from sortExpression import SortExpressions
 from expressionPathFinder import NumberPathFinder
 from randomExpressionGenerator import RandomExpressionGenerator
-from history import history
+from history import History
 from algebricEquation import AlgebricEquation
 from tokeniser import Tokeniser
 
 class GUI:
     def __init__(self):
-        self.history = history()
+        self.history = History()
         self.title_bar()
 
 

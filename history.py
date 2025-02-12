@@ -1,29 +1,29 @@
 # Created by: CHAN JUN YI (2309347)
 from partialTokeniser import partialTokeniser
 
-class history:
+class History:
     def __init__(self):
-        self.history = []
+        self.__history = []
         self.edit_tokens = []
 
     def add(self, tokens, result):
-        self.history.append((tokens, result))
+        self.__history.append((tokens, result))
 
     def showLast5(self):
         print()
-        if not self.history:
+        if not self.__history:
             print("\nNo history to show.")
             return False
         
-        for i, (tokens, result) in enumerate(self.history[-5:]):
-            print(f"{min(5, len(self.history)) - i}: {''.join(tokens)} = {result}")
+        for i, (tokens, result) in enumerate(self.__history[-5:]):
+            print(f"{min(5, len(self.__history)) - i}: {''.join(tokens)} = {result}")
 
         return True
 
     def editFromHistory(self):
 
         #choose from hisory
-        if not self.history:
+        if not self.__history:
             print("\nNo history to edit.")
             return None
         inputChoice = self.inputChoice()
@@ -33,7 +33,7 @@ class history:
             return
         
         #edit from  history
-        choice = self.history[-inputChoice]
+        choice = self.__history[-inputChoice]
         self.edit_tokens = self.editTokens(choice[0])
         #print(self.edit_tokens)
 
@@ -107,10 +107,10 @@ class history:
         try:
             index = int(input("Please enter the number of the expression history you want to edit, or 0 to exit:"))
             #not in history
-            if index < 0 or index > min(len(self.history), 5):
-                print("Invalid index. Please enter a number between 0 and", min(len(self.history), 5))
+            if index < 0 or index > min(len(self.__history), 5):
+                print("Invalid index. Please enter a number between 0 and", min(len(self.__history), 5))
                 return self.inputChoice()
             return index
         except ValueError:
-            print("Invalid index. Please enter a number between 0 and", min(len(self.history), 5))
+            print("Invalid index. Please enter a number between 0 and", min(len(self.__history), 5))
             return self.inputChoice()
