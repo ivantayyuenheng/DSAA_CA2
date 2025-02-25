@@ -1,5 +1,0 @@
-*** Expressions with value= 60
-((((((40/2)/2)+1)**2)-1)/2)==>60
-
-*** Expressions with value= 30
-(((((10+1)**2)-1)/2)/2)==>30

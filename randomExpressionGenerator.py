@@ -141,7 +141,7 @@ class RandomExpressionGenerator:
         
         output_handler = OutputFile()
         output_handler.send_file(self.content)
-        print(f"✅ Expressions saved to {output_handler.get_output_file_name()}")
+        print(f"Expressions saved to {output_handler.get_output_file_name()}")
 
     def evaluate_expression_choice(self):
         mytree = BuildParseTree()
